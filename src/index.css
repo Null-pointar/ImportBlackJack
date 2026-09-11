@@ -1,0 +1,85 @@
+/* ── design tokens ─────────────────────────────────────────────
+   漆（indigo）の卓に和紙（paper）の札を置く、という見立て。
+   朱（shu）は危険と相手、黄土（ochre）は自分の手番。
+   ──────────────────────────────────────────────────────────── */
+:root {
+  --ink: #141b34;
+  --ink-deep: #0c1126;
+  --ink-raised: #1d2647;
+  --paper: #efe9da;
+  --paper-shade: #d9d1bd;
+  --sumi: #191713;
+  --shu: #c8452f;
+  --shu-soft: #e0705b;
+  --ochre: #d9a441;
+  --mist: rgba(239, 233, 218, 0.58);
+  --mist-faint: rgba(239, 233, 218, 0.16);
+  --rule: rgba(239, 233, 218, 0.22);
+
+  --card-w: clamp(52px, 14vw, 74px);
+  --card-h: calc(var(--card-w) * 1.44);
+  --radius: 7px;
+
+  --serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --sans: "Zen Kaku Gothic New", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  background:
+    radial-gradient(120% 70% at 50% 0%, #1b2450 0%, transparent 60%),
+    var(--ink);
+  color: var(--paper);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ochre);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

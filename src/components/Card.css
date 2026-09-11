@@ -1,0 +1,107 @@
+.card {
+  width: var(--card-w);
+  height: var(--card-h);
+  display: block;
+  perspective: 900px;
+  transition: transform 160ms ease;
+}
+
+.card:disabled {
+  cursor: default;
+}
+
+.card[data-selectable="true"]:not([data-selected="true"]):hover {
+  transform: translateY(-5px);
+}
+
+.card[data-selected="true"] {
+  transform: translateY(-11px);
+}
+
+.card-inner {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 520ms cubic-bezier(0.2, 0.75, 0.2, 1);
+}
+
+.card-inner[data-face="back"] {
+  transform: rotateY(180deg);
+}
+
+.card-face {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius);
+  backface-visibility: hidden;
+  box-shadow: 0 9px 20px rgba(0, 0, 0, 0.45);
+}
+
+.card[data-selected="true"] .card-face {
+  box-shadow:
+    0 0 0 2px var(--ochre),
+    0 16px 28px rgba(0, 0, 0, 0.55);
+}
+
+/* 表: 和紙の札 */
+.card-front {
+  background: linear-gradient(168deg, #f5f0e4 0%, var(--paper) 62%, #e6dfcd 100%);
+  color: var(--sumi);
+  border-bottom: 2px solid var(--paper-shade);
+}
+
+.card-corner {
+  position: absolute;
+  top: 5px;
+  left: 7px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  opacity: 0.62;
+}
+
+.card-pip {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: var(--serif);
+  font-size: calc(var(--card-w) * 0.62);
+  line-height: 1;
+  padding-top: 0.06em;
+}
+
+.card-seen {
+  position: absolute;
+  right: 7px;
+  bottom: 7px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--shu);
+}
+
+/* 裏: 漆の札。中央に朱の菱形 */
+.card-back {
+  transform: rotateY(180deg);
+  background: var(--ink-raised);
+  box-shadow:
+    inset 0 0 0 1px var(--rule),
+    inset 0 0 0 4px var(--ink-deep),
+    0 9px 20px rgba(0, 0, 0, 0.45);
+}
+
+.card-back::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 34%;
+  height: 34%;
+  background: var(--shu);
+  opacity: 0.5;
+  transform: rotate(45deg);
+  border-radius: 2px;
+}
