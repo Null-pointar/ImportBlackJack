@@ -233,19 +233,22 @@ function reduce(
       const oppCard = you.hand[oppIndex];
       if (myCard === undefined || oppCard === undefined) return null;
 
-      // 交換前に公開されていたかどうかは、カードに付いて移動する
-      const wasMyCardRevealed = me.revealIndex.includes(myIndex);
-      const wasOppCardRevealed = you.revealIndex.includes(oppIndex);
-
       const myHand = [...me.hand];
       myHand[myIndex] = oppCard;
-      let myReveal = me.revealIndex.filter((i) => i !== myIndex);
-      if (wasOppCardRevealed) myReveal = [...myReveal, myIndex];
-
       const yourHand = [...you.hand];
       yourHand[oppIndex] = myCard;
-      let yourReveal = you.revealIndex.filter((i) => i !== oppIndex);
-      if (wasMyCardRevealed) yourReveal = [...yourReveal, oppIndex];
+
+      // 交換したカードは、公開されていたかどうかに関係なく双方に知られる。
+      // 自分が差し出した札の値は自分が見ているし、相手が差し出した札の値は
+      // 相手が見ている。つまり交換後はお互いに相手の1枚を確実に特定できる。
+      const myReveal = [
+        ...me.revealIndex.filter((i) => i !== myIndex),
+        myIndex,
+      ];
+      const yourReveal = [
+        ...you.revealIndex.filter((i) => i !== oppIndex),
+        oppIndex,
+      ];
 
       let players = replacePlayer(state.players, cur, {
         ...me,
